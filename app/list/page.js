@@ -1,0 +1,26 @@
+import { connectDB } from "@/util/database";
+import Link from "next/link";
+import DetailLink from "./DetailLink.";
+
+export default async function List() {
+  const db = (await connectDB).db("jdb");
+  let result = await db.collection("post").find().toArray();
+
+  return (
+    <div className="list-bg">
+      <DetailLink></DetailLink>
+      {result?.map((v, i) => (
+        <Link key={i} href={`/detail/${v._id}`}>
+          <div className="list-item">
+            <h4>{v.title}</h4>
+            <Link href={`/edit/${v._id}`}>수정</Link>
+            <p>1월 1일</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+// 유저가 db에 글저장하기로하면 db로바로저장하는게아니라 중간프로그램으로 글을보내면 프로그램은 글을 검토후 db에 넣는다
+//3티어 아키텍쳐
