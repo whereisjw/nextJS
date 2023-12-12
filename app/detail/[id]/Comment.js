@@ -9,8 +9,8 @@ export default   function Comment({session ,parent}) {
   const [commentList,setCommentList] = useState()
  
  useEffect(()=>{
-  axios.get(`/api/comment/${parent}`).then(res=>setCommentList(res.data))
- },[])
+  axios.get(`/api/comment/${parent}`).then(res=>setCommentList(res.data)) 
+ },[commentList])
   const handleClick = () => {
       axios.post(`/api/comment/new`,{content : comment ,author: session.user.email,parent:parent }).then().catch()  
   };
@@ -19,8 +19,8 @@ export default   function Comment({session ,parent}) {
     <>
       <div>
         <ul>
-{        commentList?.map(v=>(
-            <li><span>아이디:{v.author}</span><br></br><span>내용:{v.content}</span></li>
+{     !commentList ? <p>로딩중...</p> :   commentList?.map((v,i)=>(
+            <li key={i}><span>아이디:{v.author}</span><br></br><span>내용:{v.content}</span></li>
 ))}
 
         </ul>
