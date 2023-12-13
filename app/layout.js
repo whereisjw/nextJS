@@ -4,7 +4,9 @@ import Link from "next/link";
 import LoginBtn from "./LoginBtn";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-
+import { cookies } from "next/headers";
+import Darkmode from "./Darkmode";
+/* import { useState } from "react"; */
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,10 +16,14 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   let session = await getServerSession(authOptions);
- 
+  let res = cookies().get("mode");
+  console.log(res,'쿠키이름');
+
+  /*   const [dark, setDark] = useState("dark"); */
+
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={res.value == 'dark' ? 'dark-mode' : ''}>
         {" "}
         <div className="navbar">
           <Link href="/" className="logo">
@@ -29,6 +35,7 @@ export default async function RootLayout({ children }) {
           ) : (
             <LoginBtn />
           )}
+          <Darkmode />
         </div>{" "}
         {children}
       </body>

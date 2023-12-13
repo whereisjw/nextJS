@@ -54,3 +54,9 @@ button {
   opacity: 1;
   transition: all 1s;
 }
+
+.dark-mode .navbar{
+  background-color: #222;
+  color: white;
+}
+

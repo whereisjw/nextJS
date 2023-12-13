@@ -71,3 +71,11 @@ signIn 이라는 라이브러리함수쓰면 자동으로 로그인페이지 만
 npm install @next-auth/mongodb-adapter
 
 이런식으로 뜸
+
+
+# 다크모드만들기
+
+document.cookie = '쿠키이름 = 값,max-age=3600' //최대 400일까지 초단위로 설정가능함
+import {cookies} from 'next/headers'
+let res = cookies().get('쿠키이름')
+console.log(res);
